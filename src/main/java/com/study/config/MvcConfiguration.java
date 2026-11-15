@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.thymeleaf.ITemplateEngine;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring6.view.ThymeleafViewResolver;
@@ -41,7 +40,7 @@ public class MvcConfiguration implements WebMvcConfigurer {
     @Bean
     public SpringTemplateEngine springTemplateEngine(ITemplateResolver resolver) {
         SpringTemplateEngine engine = new SpringTemplateEngine();
-        engine.setTemplateResolver((ITemplateResolver) resolver);
+        engine.setTemplateResolver(resolver);
         return engine;
     }
 

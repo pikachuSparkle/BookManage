@@ -1,19 +1,13 @@
 package com.study.entity;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.ToString;
 
 @Data
-@Setter
-@Getter
 public class Account {
-
-
-    int id;
-    String username;
-    String password;
-    String role;
-
+    private int id;
+    private String username;
+    @ToString.Exclude
+    private String password;
+    private String role;
 }

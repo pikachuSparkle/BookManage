@@ -7,6 +7,7 @@
 <!-- Begin Head -->
 
 <head>
+    <base th:href="@{/}">
     <title>图书管理系统</title>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -60,7 +61,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="students">
+                        <a th:href="@{/student}">
                             <span class="icon-menu feather-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                             </span>
@@ -103,7 +104,8 @@
                                     <p class="card-desc">请在下方选择所借阅的 <code>书籍</code> 以及对应的 <code>借阅人</code></p>
                                 </div>
                                 <div class="card-body">
-                                    <form class="separate-form" method="post" action="add-borrow">
+                                    <p th:if="${#lists.isEmpty(book_list)}">当前没有可借阅图书，请先归还或添加图书。</p>
+                                    <form class="separate-form" method="post" th:action="@{/add-borrow}">
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                             <hr class="mt-4 mb-4">
                                             <h5 class="from-title mb-1">信息选择</h5>
@@ -111,7 +113,7 @@
                                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                                                     <div class="form-group">
                                                         <label for="region" class="col-form-label">书籍</label>
-                                                        <select class="select2 form-control" id="region" name="book">
+                                                        <select class="select2 form-control" id="region" name="book" required>
                                                             <option th:value="${book.getId()}" th:each="book : ${book_list}" th:text="${book.getTitle()}"></option>
                                                         </select>
                                                     </div>
@@ -119,7 +121,7 @@
                                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                                                     <div class="form-group">
                                                         <label for="city" class="col-form-label">学生</label>
-                                                        <select class="select2 form-control" id="city" name="student">
+                                                        <select class="select2 form-control" id="city" name="student" required>
                                                             <option th:value="${student.getId()}" th:each="student : ${student_list}" th:text="${student.getName()}"></option>
                                                         </select>
                                                     </div>

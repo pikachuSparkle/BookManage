@@ -1,47 +1,35 @@
 package com.study.controller;
 
+import com.study.entity.AddBookForm;
 import com.study.service.BookService;
-import jakarta.annotation.Resource;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.ArrayList;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class BookController {
-
-    @Resource
-    BookService bookService;
+    private final BookService books;
+    public BookController(BookService books) { this.books = books; }
 
     @GetMapping("/books")
     public String books(Model model) {
-
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("nickname", user.getUsername());
-        model.addAttribute("book_list", bookService.getBookList().keySet());
-        model.addAttribute("book_list_status", new ArrayList<>(bookService.getBookList().values()));
+        model.addAttribute("book_list", books.getBookList());
         return "books";
     }
 
     @GetMapping("/add-book")
-    public String addBook() {
-        return "add-book";
-    }
-
+    public String addBook() { return "add-book"; }
 
     @PostMapping("/add-book")
-    public String addBook(String title, String desc, double price) {
-        bookService.addBook(title, desc, price);
+    public String addBook(@Valid @ModelAttribute AddBookForm form) {
+        books.addBook(form);
         return "redirect:/books";
     }
 
-    @GetMapping("/delete-book")
-    public String deleteBook(int bid){
-        bookService.deleteBook(bid);
+    @PostMapping("/delete-book")
+    public String deleteBook(@RequestParam int bid) {
+        books.deleteBook(bid);
         return "redirect:/books";
     }
 }

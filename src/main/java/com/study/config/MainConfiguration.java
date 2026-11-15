@@ -1,31 +1,33 @@
 package com.study.config;
 
-
-import org.apache.ibatis.datasource.pooled.PooledDataSource;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 
 @Configuration
 @ComponentScan("com.study.service")
 @MapperScan("com.study.mapper")
+@EnableTransactionManagement
+@PropertySource("classpath:application.properties")
+@Import(ValidationConfiguration.class)
 public class MainConfiguration {
-
-    @Bean
-    public DataSource dataSource() {
-        return new PooledDataSource(
-                "com.mysql.cj.jdbc.Driver",
-                "jdbc:mysql://127.0.0.1:3306/study",
-                "root",
-                "password"
-        );
+    @Bean(destroyMethod = "close")
+    public HikariDataSource dataSource(Environment environment) {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(environment.getRequiredProperty("DB_URL"));
+        config.setUsername(environment.getRequiredProperty("DB_USER"));
+        config.setPassword(environment.getRequiredProperty("DB_PASSWORD"));
+        config.setMaximumPoolSize(10);
+        return new HikariDataSource(config);
     }
-
 
     @Bean
     public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource) {
@@ -34,4 +36,8 @@ public class MainConfiguration {
         return bean;
     }
 
+    @Bean
+    public PlatformTransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
 }

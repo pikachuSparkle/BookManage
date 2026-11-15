@@ -1,21 +1,15 @@
 package com.study.entity;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import java.time.LocalDateTime;
 
-import java.util.Date;
 @Data
-@Getter
-@Setter
 public class Borrow {
-
-    int id;
-    int sid;
-    int bid;
-    Date time;
-    String bookName;
-    String student2Name;
-
-
+    private int id;
+    private int sid;
+    private int bid;
+    private LocalDateTime time;
+    private LocalDateTime returnedAt;
+    private String bookName;
+    private String studentName;
 }

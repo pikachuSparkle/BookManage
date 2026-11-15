@@ -1,16 +1,13 @@
 package com.study.entity;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import java.math.BigDecimal;
 
 @Data
-@Getter
-@Setter
 public class Book {
-
-    int id;
-    String title;
-    String desc;
-    double price;
+    private int id;
+    private String title;
+    private String desc;
+    private BigDecimal price;
+    private boolean deleted;
 }
