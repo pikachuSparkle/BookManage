@@ -1,5 +1,7 @@
 # BookManage 图书借阅管理
 
+[简体中文](README.md) | [English](README.en.md)
+
 传统 Java Web 项目：Spring MVC 6、Spring Security 6、MyBatis、Thymeleaf。
 支持登录、图书增删、学生列表、借阅与归还；归还记录保存在数据库，图书删除采用软删除。
 普通 `USER` 用户只读，`ADMIN` 用户可以维护图书和借阅记录。
