@@ -7,7 +7,9 @@ It supports login, adding and deleting books, student listings, borrowing, and r
 Return history is retained in the database, and books use soft deletion.
 `USER` accounts have read-only access; `ADMIN` accounts can manage books and loans.
 
-Demo book titles and student names are in English. The application interface is currently in Chinese.
+Use the **中文 / English** switch at the bottom right of any page to change the interface language.
+The browser remembers your selection. Built-in demo book titles, descriptions, and student names also switch languages;
+custom user-entered content is displayed as entered.
 
 ## Requirements
 

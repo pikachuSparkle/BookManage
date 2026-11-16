@@ -100,8 +100,8 @@
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>添加借阅</h4>
-                                    <p class="card-desc">请在下方选择所借阅的 <code>书籍</code> 以及对应的 <code>借阅人</code></p>
+                                    <h4>录入书籍信息</h4>
+                                    <p class="card-desc">请填写书籍标题、简介和价格。</p>
                                 </div>
                                 <div class="card-body">
                                     <form class="separate-form" method="post" th:action="@{/add-book}">
@@ -157,6 +157,7 @@
     <script src="static/js/nice-select.min.js"></script>
     <!-- Custom Script -->
     <script src="static/js/custom.js"></script>
+    <script th:src="@{/static/js/language.js}"></script>
 </body>
 
 </html>
